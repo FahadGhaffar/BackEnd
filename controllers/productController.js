@@ -86,7 +86,7 @@ const deleteProduct = async (req, res) => {
 // };
 
 const uploadImage = async (req, res) => {
-    console.log("hello", req.files.image.tempFilePath);
+    // console.log("hello", req.files.image.tempFilePath);
     try {
         const result = await cloudinary.uploader.upload(
             req.files.image.tempFilePath,
