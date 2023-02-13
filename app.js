@@ -53,7 +53,7 @@ app.use(mongoSanitize());
 app.use(express.json());
 app.use(cookieParser(config.jwt_secret || "secret"));
 
-app.use(fileUpload());
+app.use(fileUpload({ useTempFiles: true }));
 
 app.use('/api/v1/auth', authRoute);
 app.use('/api/v1/users', userRouter);

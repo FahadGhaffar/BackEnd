@@ -9,6 +9,7 @@ import { CustomAPIError, NotFoundError, BadRequestError } from "../errors/index.
 import path from "path";
 import { v2 as cloudinary } from 'cloudinary'
 import fs from 'fs'
+import { log } from "console";
 
 
 const createProduct = async (req, res) => {
@@ -85,16 +86,22 @@ const deleteProduct = async (req, res) => {
 // };
 
 const uploadImage = async (req, res) => {
-    const result = await cloudinary.uploader.upload(
-        req.files.image.tempFilePath,
-        {
-            use_filename: true,
-            folder: 'Hackathon',
-        }
-    );
-    // console.log("hello", req.files.image);
-    fs.unlinkSync(req.files.image.tempFilePath);
-    return res.status(StatusCodes.OK).json({ image: { src: result.secure_url } });
+    console.log("hello", req.files.image.tempFilePath);
+    try {
+        const result = await cloudinary.uploader.upload(
+            req.files.image.tempFilePath,
+            {
+                use_filename: true,
+                folder: 'Hackathon',
+            }
+        );
+        fs.unlinkSync(req.files.image.tempFilePath);
+        return res.status(StatusCodes.OK).json({ image: { src: result.secure_url } });
+    } catch (error) {
+        console.log(error);
+        return res.status(StatusCodes.BAD_REQUEST).json({ image: { src: "Error" } });
+    }
+
 };
 
 export {
