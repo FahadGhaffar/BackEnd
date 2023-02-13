@@ -58,44 +58,44 @@ const deleteProduct = async (req, res) => {
     await product.remove();
     res.status(StatusCodes.OK).json({ msg: 'Success! Product removed.' });
 };
-// const uploadImage = async (req, res) => {
-//     if (!req.files) {
-//         throw new BadRequestError('No File Uploaded');
-//     }
-//     const productImage = req.files.image;
-
-//     if (!productImage.mimetype.startsWith('image')) {
-//         throw new BadRequestError('Please Upload Image');
-//     }
-
-//     const maxSize = 1024 * 1024;
-
-//     if (productImage.size > maxSize) {
-//         throw new BadRequestError(
-//             'Please upload image smaller than 1MB'
-//         );
-//     }
-
-//     const imagePath = path.join(
-//         __dirname,
-//         '../public/uploads/' + `${productImage.name}`
-//     );
-//     await productImage.mv(imagePath);
-//     res.status(StatusCodes.OK).json({ image: `/uploads/${productImage.name}` });
-// };
-
 const uploadImage = async (req, res) => {
-    const result = await cloudinary.uploader.upload(
-        req.files.image.tempFilePath,
-        {
-            use_filename: true,
-            folder: 'Hackathon',
-        }
+    if (!req.files) {
+        throw new BadRequestError('No File Uploaded');
+    }
+    const productImage = req.files.image;
+
+    if (!productImage.mimetype.startsWith('image')) {
+        throw new BadRequestError('Please Upload Image');
+    }
+
+    const maxSize = 1024 * 1024;
+
+    if (productImage.size > maxSize) {
+        throw new BadRequestError(
+            'Please upload image smaller than 1MB'
+        );
+    }
+
+    const imagePath = path.join(
+        __dirname,
+        '../public/uploads/' + `${productImage.name}`
     );
-    // console.log("hello", req.files.image);
-    fs.unlinkSync(req.files.image.tempFilePath);
-    return res.status(StatusCodes.OK).json({ image: { src: result.secure_url } });
+    await productImage.mv(imagePath);
+    res.status(StatusCodes.OK).json({ image: `/uploads/${productImage.name}` });
 };
+
+// const uploadImage = async (req, res) => {
+//     const result = await cloudinary.uploader.upload(
+//         req.files.image.tempFilePath,
+//         {
+//             use_filename: true,
+//             folder: 'Hackathon',
+//         }
+//     );
+//     // console.log("hello", req.files.image);
+//     fs.unlinkSync(req.files.image.tempFilePath);
+//     return res.status(StatusCodes.OK).json({ image: { src: result.secure_url } });
+// };
 
 export {
     createProduct,
