@@ -1,7 +1,7 @@
 import * as dotenv from "dotenv";
 dotenv.config()
 import express from "express";
-
+import bodyParser from "body-parser";
 import config from "./constants/config.js";
 import { CustomAPIError } from "./errors/index.js"
 import { authenticateUser } from "./middleware/authentication.js"
@@ -53,8 +53,10 @@ app.use(mongoSanitize());
 app.use(express.json());
 app.use(cookieParser(config.jwt_secret || "secret"));
 
-app.use(fileUpload({ useTempFiles: true }));
-
+// app.use(fileUpload({ useTempFiles: true }));
+app.use(fileUpload());
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 app.use('/api/v1/auth', authRoute);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/products', productRouter);
