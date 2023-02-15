@@ -122,7 +122,7 @@ const deleteProduct = async (req, res) => {
 //     // Some async function
 //     const getDisplayUrl = async (buffer, name = "Default-filename") => {
 //         return await imgbbUploader({
-//             apiKey: "5eb1937de97cf7b6954cf216dbcd8e1f",
+//             apiKey: "",
 //             base64string: await bufferToBase64(buffer),
 //             name,
 //         })
