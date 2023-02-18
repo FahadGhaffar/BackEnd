@@ -38,7 +38,10 @@ const updateCategory = async (req, res) => {
 
     const { id: catgoryId } = req.params
 
-    const category = await Category.findOneAndUpdate({ _id: catgoryId })
+    const category = await Category.findOneAndUpdate({ _id: catgoryId }, req.body, {
+        new: true,
+        runValidators: true,
+    });
     if (!category) {
         throw new NotFoundError(`No Category with Id : ${catgoryId}`)
     }
