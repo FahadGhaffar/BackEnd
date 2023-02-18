@@ -34,6 +34,7 @@ import userRouter from './routers/userRoute.js';
 import productRouter from './routers/productRoute.js';
 import reviewRouter from './routers/reviewRoute.js';
 import orderRouter from './routers/orderRoute.js';
+import categoryRouter from './routers/categoryRoute.js'
 
 import notFound from "./middleware/not-found.js"
 import errorHandlerMiddleware from "./middleware/error-handler.js";
@@ -62,6 +63,7 @@ app.use('/api/v1/users', userRouter);
 app.use('/api/v1/products', productRouter);
 app.use('/api/v1/reviews', reviewRouter);
 app.use('/api/v1/orders', orderRouter);
+app.use('/api/v1/category', categoryRouter);
 
 // app.use(notFound);
 app.use(errorHandlerMiddleware);
