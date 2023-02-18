@@ -70,7 +70,7 @@ const uploadImage = async (req, res) => {
 
             let cld_upload_stream = cloudinary.uploader.upload_stream(
                 {
-                    folder: "foo"
+                    folder: "Hackathon"
                 },
                 (error, result) => {
 
@@ -89,7 +89,7 @@ const uploadImage = async (req, res) => {
 
     let result = await uploadFromBuffer(req);
 
-    return res.status(StatusCodes.OK).json({ image: { src: result } });
+    return res.status(StatusCodes.OK).json({ image: { src: result.url } });
 
 
 
