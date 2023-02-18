@@ -49,7 +49,7 @@ const deleteCategory = async (req, res) => {
 
     const { id: categoryId } = req.params;
 
-    const category = await Category.findOne({ _id: catgoryId })
+    const category = await Category.findOne({ _id: categoryId })
 
     if (!category) {
         throw new NotFoundError(`No Category with Id : ${categoryId}`)
