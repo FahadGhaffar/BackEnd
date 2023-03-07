@@ -23,7 +23,7 @@ import { bindActionCreators } from 'redux';
 import { icons, images, SIZES, COLORS, FONTS } from '../constants/index.js'
 
 const Cart = ({ navigation, route }) => {
-    const { order } = route.params;
+    // const { order } = route.params;
 
     function getduplicationprodutect(addarray) {
         const myArray = addarray;
@@ -37,8 +37,8 @@ const Cart = ({ navigation, route }) => {
         // console.log(elementCounts);
     }
 
-    let getorder = getduplicationprodutect(order);
-    console.log(getorder)
+    // let getorder = getduplicationprodutect(order);
+    // console.log(getorder)
 
     const categoryData = [
         {
@@ -565,7 +565,7 @@ const Cart = ({ navigation, route }) => {
                         style={styles.logo}
                         source={icons.basket}
                     />
-                    {counts > 0 ? (
+                    {/* {counts > 0 ? (
                         <View
                             style={{
                                 position: 'absolute',
@@ -588,7 +588,7 @@ const Cart = ({ navigation, route }) => {
                                 {counts}
                             </Text>
                         </View>
-                    ) : null}
+                    ) : null} */}
                 </TouchableOpacity>
             </View>
 

@@ -12,8 +12,10 @@ import {
     TextInput,
     Button,
     Alert,
-    TouchableOpacity
+    TouchableOpacity,
+    ActivityIndicator
 } from 'react-native';
+import Spinner from 'react-native-loading-spinner-overlay';
 import axios from 'axios';
 import { URL } from '../constants/index.js'
 import AIcon from 'react-native-vector-icons/AntDesign';
@@ -26,15 +28,21 @@ const Login = ({ navigation, route }) => {
     const [email, setemail] = React.useState("")
     const [password, setpassword] = React.useState("")
 
-    const parseJwt = (token) => {
-        var base64Url = token.split('.')[1];
-        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
+    const [loading, setLoading] = React.useState(false);
 
-        return JSON.parse(jsonPayload);
-    }
+    // setInterval(()=>{
+    //     this.setState
+    // })
+
+    // const parseJwt = (token) => {
+    //     var base64Url = token.split('.')[1];
+    //     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    //     var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
+    //         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    //     }).join(''));
+
+    //     return JSON.parse(jsonPayload);
+    // }
 
     return (
         <View style={styles.cotentCenter}>
@@ -49,7 +57,11 @@ const Login = ({ navigation, route }) => {
 
             <View style={styles.loginpanel}>
                 <KeyboardAvoidingView style={styles.loginpanelMainContainer}>
-
+                    <Spinner
+                        visible={loading}
+                        textContent={'Loading...'}
+                        textStyle={styles.spinnerTextStyle}
+                    />
 
                     {/* <View style={styles.loginpanelTextContainer}>
                         <Text style={styles.loginText}></Text>
@@ -81,6 +93,7 @@ const Login = ({ navigation, route }) => {
             /> */}
 
                         <TouchableOpacity onPress={() => {
+                            setLoading(true)
                             console.log(email, password)
                             let value = {
                                 email: email,
@@ -100,9 +113,12 @@ const Login = ({ navigation, route }) => {
                                     // window.location.reload();
                                     console.log(response.data?.token);
                                     console.log(response.data?.user.role);
+                                    setLoading(false)
                                     goToChat()
+
                                 })
                                 .catch((error) => {
+                                    setLoading(false)
                                     console.log(error.response.data);
                                 });
                         }}
@@ -142,6 +158,9 @@ const styles = StyleSheet.create({
     // cotentCenter1: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "green" },
     // cotentCenter2: { flex: 8, justifyContent: "center", backgroundColor: "yellow" },
     Welcomcotent: { flex: 1, justifyContent: "center", alignItems: 'center', backgroundColor: "#fff" },
+    spinnerTextStyle: {
+        color: 'green',
+    },
     Greeding: {
         fontSize: 30,
         fontWeight: "bold",

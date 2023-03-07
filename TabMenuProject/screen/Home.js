@@ -540,11 +540,13 @@ const Home = ({ navigation, route }) => {
                     <Text style={styles.StoreGreeding}>Discount Store</Text>
                 </View>
                 <TouchableOpacity onPress={() => {
-                    navigation.navigate("chart",
-                        {
-                            order: getproduct,
-                        }
-                    )
+                    // navigation.navigate("chart",
+                    //     {
+                    //         order: getproduct,
+                    //     }
+                    // )
+                    navigation.navigate("chart")
+
 
                 }}>
                     <Image

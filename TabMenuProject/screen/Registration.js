@@ -28,6 +28,8 @@ const Registration = ({ navigation, route }) => {
     const [email, setemail] = React.useState("")
     const [password, setpassword] = React.useState("")
     const [fullname, setfullname] = React.useState("")
+
+    const [loading, setLoading] = React.useState(false);
     return (
         <View style={styles.cotentCenter}>
 
@@ -41,7 +43,11 @@ const Registration = ({ navigation, route }) => {
 
             <View style={styles.loginpanel}>
                 <KeyboardAvoidingView style={styles.loginpanelMainContainer}>
-
+                    <Spinner
+                        visible={loading}
+                        textContent={'Loading...'}
+                        textStyle={styles.spinnerTextStyle}
+                    />
 
                     {/* <View style={styles.loginpanelTextContainer}>
                         <Text style={styles.loginText}></Text>
@@ -84,6 +90,7 @@ const Registration = ({ navigation, route }) => {
 
                         <TouchableOpacity onPress={() => {
                             // console.log(email, password)
+                            setLoading(true)
                             let value = {
                                 name: fullname,
                                 email: email,
@@ -103,9 +110,11 @@ const Registration = ({ navigation, route }) => {
                                     // window.location.reload();
                                     console.log(response);
                                     // console.log(response.data?.user.role);
+                                    setLoading(false)
                                     goToChat()
                                 })
                                 .catch((error) => {
+                                    setLoading(false)
                                     console.log('error');
                                     console.log(error.response.data);
                                 });
@@ -140,6 +149,9 @@ const styles = StyleSheet.create({
     // cotentCenter1: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "green" },
     // cotentCenter2: { flex: 8, justifyContent: "center", backgroundColor: "yellow" },
     Welcomcotent: { flex: 1, justifyContent: "center", alignItems: 'center', backgroundColor: "#fff" },
+    spinnerTextStyle: {
+        color: 'green',
+    },
     Greeding: {
         fontSize: 30,
         fontWeight: "bold",
