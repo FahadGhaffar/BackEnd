@@ -1,5 +1,5 @@
 
-import React from 'react';
+import Reac, { useEffect, useState } from 'react';
 
 import {
     SafeAreaView,
@@ -26,6 +26,13 @@ const Home = ({ navigation, route }) => {
     // const [searchQuery, setSearchQuery] = React.useState('');
 
     // const onChangeSearch = query => setSearchQuery(query);
+
+    useEffect(() => {
+        setTimeout(() => {
+            console.log("ok")
+        }, 1000);
+    }, []);
+
 
     const categoryData = [
         {
@@ -334,11 +341,11 @@ const Home = ({ navigation, route }) => {
 
     ]
 
-    const [categories, setCategories] = React.useState(categoryData)
-    const [selectedCategory, setSelectedCategory] = React.useState(null)
-    const [restaurants, setRestaurants] = React.useState(restaurantData)
-    const [counts, setCount] = React.useState(0)
-    const [getproduct, setproduct] = React.useState([])
+    const [categories, setCategories] = useState(categoryData)
+    const [selectedCategory, setSelectedCategory] = useState(null)
+    const [restaurants, setRestaurants] = useState(restaurantData)
+    const [counts, setCount] = useState(0)
+    const [getproduct, setproduct] = useState([])
 
     function onSelectCategory(category) {
         //filter restaurant

@@ -93,12 +93,12 @@ const ProductSchema = new mongoose.Schema(
             type: String,
             default: '/uploads/example.jpeg',
         },
-        category: {
+        category: [{
             type: mongoose.Schema.ObjectId,
             ref: 'User',
             required: [true, 'Please provide product category'],
-            enum: ['office', 'kitchen', 'bedroom'],
-        },
+
+        }],
         // status: {
         //     type: String,
         //     enum: ["Pending", "Deliver", "Inprocess"]

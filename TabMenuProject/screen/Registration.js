@@ -17,6 +17,7 @@ import {
 
 import axios from 'axios';
 import { URL } from '../constants/index.js'
+import Spinner from 'react-native-loading-spinner-overlay';
 import AIcon from 'react-native-vector-icons/AntDesign';
 
 const Registration = ({ navigation, route }) => {

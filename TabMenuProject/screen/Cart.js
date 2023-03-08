@@ -411,8 +411,8 @@ const Cart = ({ navigation, route }) => {
                         source={item.icon}
                         resizeMode="contain"
                         style={{
-                            width: 30,
-                            height: 30
+                            width: 20,
+                            height: 20
                         }}
                     />
                 </View>
@@ -553,11 +553,12 @@ const Cart = ({ navigation, route }) => {
                     <Text style={styles.StoreGreeding}>Cart</Text>
                 </View>
                 <TouchableOpacity onPress={() => {
-                    navigation.navigate("chart",
-                        {
-                            order: getproduct,
-                        }
-                    )
+                    // navigation.navigate("chart",
+                    //     {
+                    //         order: getproduct,
+                    //     }
+                    // )
+                    navigation.navigate("chart")
 
                 }}>
                     <Image
@@ -616,7 +617,7 @@ const Cart = ({ navigation, route }) => {
                     contentContainerStyle={{ paddingVertical: SIZES.padding * 2 }}
                 />
             </View> */}
-            <ScrollView>
+            <ScrollView style={styles.scrollViewContainer}>
                 <View style={styles.verticalListContainer}>
                     <FlatList
                         data={restaurants}
@@ -701,12 +702,15 @@ const styles = StyleSheet.create({
         paddingRight: 20
     },
     header: {
-        flex: 0.5,
+        flex: 0.1,
         flexDirection: "row",
         justifyContent: "space-between",
-        height: 50,
+        height: 75,
 
 
+    },
+    scrollViewContainer: {
+        flex: 1
     },
     subheadings: {
         flexDirection: "column",
@@ -719,8 +723,8 @@ const styles = StyleSheet.create({
     }
     , logo: {
         display: 'flex',
-        width: 50,
-        height: 50,
+        width: 40,
+        height: 40,
         justifyContent: "center",
         alignItems: "center"
     },
