@@ -14,6 +14,8 @@ import {
     FlatList,
     TouchableOpacity
 } from 'react-native';
+import axios from 'axios';
+import Spinner from 'react-native-loading-spinner-overlay';
 import AIcon from 'react-native-vector-icons/AntDesign';
 import { Searchbar } from 'react-native-paper';
 import { connect } from 'react-redux';
@@ -27,11 +29,44 @@ const Home = ({ navigation, route }) => {
 
     // const onChangeSearch = query => setSearchQuery(query);
 
+
+    let config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: 'https://cyan-fancy-shark.cyclic.app/api/v1/category/'
+    };
+
+
+
+    const [data, setData] = useState([]);
+    // const getData = async () => {
+    //     const { data } = await axios.get(`https://cyan-fancy-shark.cyclic.app/api/v1/category/`);
+    //     setData(data);
+
+    // };
     useEffect(() => {
-        setTimeout(() => {
-            console.log("ok")
-        }, 1000);
+        setLoading(true)
+        axios(config)
+            .then(function (response) {
+
+                console.log(JSON.stringify(response.data));
+                data = response.data?.category
+                setData(data);
+                console.log(data);
+                setLoading(false)
+
+            })
+            .catch(function (error) {
+                setLoading(false)
+                console.log(error);
+            });
     }, []);
+
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         console.log("ok")
+    //     }, 1000);
+    // }, []);
 
 
     const categoryData = [
@@ -344,6 +379,7 @@ const Home = ({ navigation, route }) => {
     const [categories, setCategories] = useState(categoryData)
     const [selectedCategory, setSelectedCategory] = useState(null)
     const [restaurants, setRestaurants] = useState(restaurantData)
+    const [loading, setLoading] = useState(false);
     const [counts, setCount] = useState(0)
     const [getproduct, setproduct] = useState([])
 
@@ -541,10 +577,16 @@ const Home = ({ navigation, route }) => {
 
     return (
         <View style={styles.main_container}>
+
             <View style={styles.header}>
                 <View style={styles.subheadings}>
                     <Text style={styles.Greeding}>SAYLANI WELFARE</Text>
                     <Text style={styles.StoreGreeding}>Discount Store</Text>
+                    <Spinner
+                        visible={loading}
+                        textContent={'Loading...'}
+                        textStyle={styles.spinnerTextStyle}
+                    />
                 </View>
                 <TouchableOpacity onPress={() => {
                     // navigation.navigate("chart",
@@ -718,7 +760,10 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         alignSelf: "center",
         textTransform: "uppercase"
-    }
+    },
+    spinnerTextStyle: {
+        color: 'green',
+    },
 
 
 });
